@@ -45,12 +45,10 @@ void counting_sort(int *array, size_t size)
 {
 	int i, k, *count, *output;
 
-	for (i = 0; i < (int)size; i++)
-		if (!(array[i]))
-			return;
+	if (!array)
+		return;
 
 	k = find_max(array, size);
-
 	count = malloc(sizeof(int) * (k + 1));
 	if (!count)
 		return;
