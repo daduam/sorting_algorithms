@@ -1,22 +1,18 @@
 #include "sort.h"
 
 /**
- * max_knuth_seq_lt_n - Get biggest Knuth sequence element less than size.
+ * max_knuth_seq_lt_size - Get biggest Knuth sequence element less than size.
  *
  * @size: Size
  * Return: Biggest Knuth sequence element less than size.
  */
-size_t max_knuth_seq_lt_n(size_t size)
+size_t max_knuth_seq_lt_size(size_t size)
 {
 	size_t n = 1;
 
 	while (n < size)
-	{
-		if (n * 3 + 1 >= size)
-			break;
 		n = n * 3 + 1;
-	}
-	return (n);
+	return ((n - 1) / 3);
 }
 
 /**
@@ -31,7 +27,7 @@ void shell_sort(int *array, size_t size)
 	int temp;
 	size_t i, j, n, gap;
 
-	n = max_knuth_seq_lt_n(size);
+	n = max_knuth_seq_lt_size(size);
 	for (gap = n; gap > 0; gap = (gap - 1) / 3)
 	{
 		for (i = gap; i < size; i++)
