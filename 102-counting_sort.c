@@ -55,11 +55,12 @@ void counting_sort(int *array, size_t size)
 	fill_with_zeros(count, k + 1);
 	for (i = 0; i < (int)size; i++)
 	{
-		j = *(array + i) - 1;
+		j = *(array + i);
 		*(count + j) = *(count + j) + 1;
 	}
 	for (i = 1; i <= k; i++)
 		*(count + i) = *(count + i) + *(count + i - 1);
+	print_array((const int *)count, k + 1);
 	output = malloc(sizeof(int) * size);
 	if (!output)
 	{
@@ -68,11 +69,10 @@ void counting_sort(int *array, size_t size)
 	}
 	for (i = size - 1; i >= 0; i--)
 	{
-		j = *(array + i) - 1;
+		j = *(array + i);
 		*(count + j) = *(count + j) - 1;
 		*(output + *(count + j)) = *(array + i);
 	}
-	print_array((const int *)count, k + 1);
 	for (i = 0; i < (int)size; i++)
 		*(array + i) = *(output + i);
 	free(count);
