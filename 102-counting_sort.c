@@ -20,6 +20,12 @@ int find_max(int *array, size_t size)
 	return (k);
 }
 
+/**
+ * fill_with_zeros - Fill array with zeros.
+ *
+ * @array: Array.
+ * @size: Length of the array.
+ */
 void fill_with_zeros(int *array, size_t size)
 {
 	size_t i;
