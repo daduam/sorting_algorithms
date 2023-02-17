@@ -45,7 +45,7 @@ void counting_sort(int *array, size_t size)
 {
 	int i, k, *count, *output;
 
-	if (!array || !size)
+	if (!array || size < 2)
 		return;
 
 	k = find_max(array, size);
