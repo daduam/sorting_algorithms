@@ -11,11 +11,11 @@ int find_max(int *array, size_t size)
 {
 	int i, k;
 
-	k = *array;
+	k = array[0];
 	for (i = 0; i < (int)size; i++)
 	{
-		if (k < *(array + i))
-			k = *(array + i);
+		if (k < array[i])
+			k = array[i];
 	}
 	return (k);
 }
@@ -31,7 +31,7 @@ void fill_with_zeros(int *array, size_t size)
 	size_t i;
 
 	for (i = 0; i < size; i++)
-		*(array + i) = 0;
+		array[i] = 0;
 }
 
 /**
@@ -43,38 +43,40 @@ void fill_with_zeros(int *array, size_t size)
  */
 void counting_sort(int *array, size_t size)
 {
-	int i, j, k, *count, *output;
+	int i, k, *count, *output;
 
 	for (i = 0; i < (int)size; i++)
-		if (!(array + i))
+		if (!(array[i]))
 			return;
+
 	k = find_max(array, size);
+
 	count = malloc(sizeof(int) * (k + 1));
 	if (!count)
 		return;
 	fill_with_zeros(count, k + 1);
+
 	for (i = 0; i < (int)size; i++)
-	{
-		j = *(array + i);
-		*(count + j) = *(count + j) + 1;
-	}
+		count[array[i]]++;
+
 	for (i = 1; i <= k; i++)
-		*(count + i) = *(count + i) + *(count + i - 1);
+		count[i] += count[i - 1];
+
 	print_array((const int *)count, k + 1);
+
 	output = malloc(sizeof(int) * size);
 	if (!output)
 	{
 		free(count);
 		return;
 	}
+
 	for (i = size - 1; i >= 0; i--)
-	{
-		j = *(array + i);
-		*(count + j) = *(count + j) - 1;
-		*(output + *(count + j)) = *(array + i);
-	}
+		output[--count[array[i]]] = array[i];
+
 	for (i = 0; i < (int)size; i++)
-		*(array + i) = *(output + i);
+		array[i] = output[i];
+
 	free(count);
 	free(output);
 }
