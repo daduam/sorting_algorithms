@@ -72,12 +72,7 @@ void quick_sort_helper(int *array, int lo, int hi, size_t size)
  */
 void quick_sort_hoare(int *array, size_t size)
 {
-	size_t i;
-
 	if (!array || size < 2)
 		return;
-	for (i = 0; i < size; i++)
-		if (!(array + i))
-			return;
 	quick_sort_helper(array, 0, size - 1, size);
 }
