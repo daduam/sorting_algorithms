@@ -11,6 +11,8 @@ void radix_sort(int *array, size_t size)
 {
 	int i, place, *result, max, count[10];
 
+	if (!array || size < 2)
+		return;
 	for (i = 0; i < (int)size; i++)
 		if (!(array + i))
 			return;
