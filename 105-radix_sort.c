@@ -1,26 +1,6 @@
 #include "sort.h"
 
 /**
- * find_max - Finds the maximum integer in an array.
- *
- * @array: Array to search.
- * @size: Number of elements in the array.
- * Return: Maximum integer in array.
- */
-int find_max(int *array, size_t size)
-{
-	int i, k;
-
-	k = array[0];
-	for (i = 0; i < (int)size; i++)
-	{
-		if (k < array[i])
-			k = array[i];
-	}
-	return (k);
-}
-
-/**
  * radix_sort - Sorts an array of integers in ascending order
  *              using the Radix sort algorithm
  *
@@ -35,7 +15,10 @@ void radix_sort(int *array, size_t size)
 		if (!(array + i))
 			return;
 	place = 1;
-	max = find_max(array, size);
+	max = array[0];
+	for (i = 1; i < (int)size; i++)
+		if (array[i] > max)
+			max = array[i];
 	result = malloc(sizeof(int) * size);
 	if (!result)
 		return;
