@@ -28,7 +28,7 @@ int partition(int *array, int lo, int hi, size_t size)
 {
 	int x, i, j;
 
-	x = array[lo];
+	x = array[(hi + lo) / 2];
 	i = lo - 1;
 	j = hi + 1;
 	while (1)
