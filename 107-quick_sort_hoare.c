@@ -26,20 +26,17 @@ void swap(int *a, int *b)
  */
 int partition(int *array, int lo, int hi, size_t size)
 {
-	int x, i, j;
+	int x = array[hi];
 
-	x = array[lo];
-	i = lo - 1;
-	j = hi + 1;
 	while (1)
 	{
-		while (array[++i] < x)
-			;
-		while (array[--j] > x)
-			;
-		if (i >= j)
-			return (j);
-		swap(array + i, array + j);
+		while (array[lo] < x)
+			lo++;
+		while (array[hi] > x)
+			hi--;
+		if (lo >= hi)
+			return (hi);
+		swap(array + lo, array + hi);
 		print_array((const int *)array, size);
 	}
 }
@@ -60,8 +57,8 @@ void quick_sort_helper(int *array, int lo, int hi, size_t size)
 	if (lo >= 0 && hi >= 0 && lo < hi)
 	{
 		pivot = partition(array, lo, hi, size);
-		quick_sort_helper(array, lo, pivot, size);
-		quick_sort_helper(array, pivot + 1, hi, size);
+		quick_sort_helper(array, lo, pivot - 1, size);
+		quick_sort_helper(array, pivot, hi, size);
 	}
 }
 
