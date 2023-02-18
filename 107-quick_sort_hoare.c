@@ -28,14 +28,14 @@ int partition(int *array, int lo, int hi, size_t size)
 {
 	int x, i, j;
 
-	x = array[(hi + lo) / 2];
+	x = array[lo];
 	i = lo - 1;
 	j = hi + 1;
 	while (1)
 	{
-		while (array[--j] > x)
-			;
 		while (array[++i] < x)
+			;
+		while (array[--j] > x)
 			;
 		if (i >= j)
 			return (j);
