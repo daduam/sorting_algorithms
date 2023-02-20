@@ -5,47 +5,25 @@
  *
  * @a: Pointer to the first node.
  * @b: Pointer to the second node.
+ * @list: List
  */
-void swap_listint_t(listint_t *a, listint_t *b)
+void swap_listint_t(listint_t *a, listint_t *b, listint_t **list)
 {
-	a->next = b->next;
-	if (b->next)
-		b->next->prev = a;
-	b->next = a;
+	listint_t *c, *d;
 
-	b->prev = a->prev;
-	if (a->prev)
-		a->prev->next = b;
-	a->prev = b;
-}
-
-/**
- * sort_from_tail - Sorts from tail to head.
- *
- * @head: Head of the listint_t list.
- * @tail: Tail of the listint_t list.
- * @list: listint_t list.
- * Return: Head of sorted list.
- */
-listint_t *sort_from_tail(listint_t *head, listint_t *tail, listint_t *list)
-{
-	while (tail && tail->prev)
-	{
-		if (tail->n < tail->prev->n)
-		{
-			swap_listint_t(tail->prev, tail);
-			if (tail->prev == NULL)
-				list = tail;
-			print_list(list);
-		}
-		else
-		{
-			tail = tail->prev;
-		}
-		if (tail->prev == NULL)
-			head = tail;
-	}
-	return (head);
+	c = a->next;
+	d = b->prev;
+	if (c)
+		c->prev = b;
+	if (d)
+		d->next = a;
+	a->prev = d;
+	b->next = c;
+	a->next = b;
+	b->prev = a;
+	if (*list == b)
+		*list = a;
+	print_list(*list);
 }
 
 /**
@@ -56,37 +34,28 @@ listint_t *sort_from_tail(listint_t *head, listint_t *tail, listint_t *list)
  */
 void cocktail_sort_list(listint_t **list)
 {
-	int i, j;
-	listint_t *head, *tail;
+	listint_t *cur, *head, *tail;
 
-	if (list == NULL || *list == NULL)
+	if (!list || !*list || !(*list)->next)
 		return;
-	head = *list;
-	for (i = 0; head; i++)
-		head = head->next;
-	if (i < 2)
-		return;
-	head = *list;
-	while (j < i)
-	{
-		while (head && head->next)
+	cur = *list;
+	head = tail = NULL;
+	do {
+		while (cur->next)
 		{
-			if (head->n > head->next->n)
-			{
-				swap_listint_t(head, head->next);
-				if (head->prev->prev == NULL)
-					*list = head->prev;
-				print_list((const listint_t *)*list);
-			}
+			if (cur->n > cur->next->n)
+				swap_listint_t(cur->next, cur, list);
 			else
-			{
-				head = head->next;
-			}
-			if (head->next == NULL)
-				tail = head;
+				cur = cur->next;
 		}
-		head = sort_from_tail(head, tail, *list);
-		*list = head;
-		j++;
-	}
+		tail = cur;
+		while (cur->prev != head)
+		{
+			if (cur->n < cur->prev->n)
+				swap_listint_t(cur, cur->prev, list);
+			else
+				cur = cur->prev;
+		}
+		head = cur;
+	} while (head != tail);
 }
