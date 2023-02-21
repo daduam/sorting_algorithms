@@ -1,5 +1,4 @@
 #include "deck.h"
-
 /**
  * swap_deck_nodes - Swaps two nodes of a deck.
  *
