@@ -1,5 +1,4 @@
 #include "sort.h"
-
 /**
  * swap_listint_t - Swaps two nodes of a listint_t.
  *

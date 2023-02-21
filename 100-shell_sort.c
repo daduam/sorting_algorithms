@@ -1,5 +1,4 @@
 #include "sort.h"
-
 /**
  * shell_sort - Sorts an array of integers in ascending order using
  *              the Shell sort algorithm, using the Knuth sequence.

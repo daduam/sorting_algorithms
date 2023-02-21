@@ -1,5 +1,4 @@
 #include "sort.h"
-
 /**
  * copy_array - Copies elements in a[] to b[].
  *
